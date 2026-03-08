@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduAdvocate — Know Your Child's Rights</title>
+  <meta name="description" content="Generate a personalized IEP or 504 meeting guide. Understand your rights. Advocate confidently.">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="EduAdvocate — Know Your Child's Rights">
+  <meta property="og:description" content="Generate a personalized IEP or 504 meeting guide. Understand your rights. Advocate confidently.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/og-image.svg">
+  <meta property="og:url" content="https://eduadvocate.com">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EduAdvocate — Know Your Child's Rights">
+  <meta name="twitter:description" content="Generate a personalized IEP or 504 meeting guide. Understand your rights. Advocate confidently.">
+  <meta name="twitter:image" content="/assets/og-image.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <header class="site-header" role="banner">
+    <nav class="nav-container" aria-label="Main navigation">
+      <a href="#/" class="nav-logo">EduAdvocate</a>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a href="#/" role="menuitem" data-nav="home">How It Works</a></li>
+        <li role="none"><a href="#/parent" role="menuitem" data-nav="parent">For Parents</a></li>
+        <li role="none"><a href="#/educator" role="menuitem" data-nav="educator">For Educators</a></li>
+        <li role="none"><a href="#/pricing" role="menuitem" data-nav="pricing">Pricing</a></li>
+        <li role="none"><a href="#/feedback" role="menuitem" data-nav="feedback">Feedback</a></li>
+        <li role="none" class="nav-auth-item">
+          <a href="#/login" role="menuitem" data-nav="login" id="nav-auth-link">Log In</a>
+          <div class="account-dropdown" id="account-dropdown" hidden>
+            <a href="#/account">My Account</a>
+            <button id="nav-logout-btn" type="button">Sign Out</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div id="app"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">EduAdvocate</div>
+        <p>Helping parents and educators understand IEP and 504 plans, know the law, and walk into every meeting prepared.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#/parent">For Parents</a></li>
+          <li><a href="#/educator">For Educators</a></li>
+          <li><a href="#/pricing">Pricing</a></li>
+          <li><a href="#/">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#/terms">Terms of Service</a></li>
+          <li><a href="#/privacy">Privacy Policy</a></li>
+          <li><a href="#/disclaimer">Disclaimer</a></li>
+          <li><a href="#/feedback">Feedback</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://www.parentcenterhub.org/find-your-center/" target="_blank" rel="noopener noreferrer">Find Your PTI</a></li>
+          <li><a href="https://ocrcomplaint.ed.gov/" target="_blank" rel="noopener noreferrer">File an OCR Complaint</a></li>
+          <li><a href="https://www.ndrn.org/" target="_blank" rel="noopener noreferrer">NDRN</a></li>
+          <li><a href="https://www.wrightslaw.com/" target="_blank" rel="noopener noreferrer">Wrightslaw</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="footer-year"></span> Axiom 38 LLC DBA EduAdvocate. All rights reserved. | Disabled Veteran Owned Business | Michigan</p>
+      <p>Educational use only. Not legal advice. Not medical advice.</p>
+    </div>
+  </footer>
+
+  <!-- Data Files -->
+  <script src="/js/data/disabilities.js"></script>
+  <script src="/js/data/states.js"></script>
+  <script src="/js/data/iep-goals.js"></script>
+  <script src="/js/data/504-accommodations.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="/js/auth.js"></script>
+  <script src="/js/feedback.js"></script>
+  <script src="/js/stripe-stub.js"></script>
+  <script src="/js/quiz.js"></script>
+  <script src="/js/guide.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
