@@ -62,7 +62,6 @@
       case '/guide-builder':
         if (typeof EduQuiz !== 'undefined') {
           EduQuiz.renderGuideStep();
-          EduQuiz.bindCurrentStep();
         }
         break;
       case '/educator':

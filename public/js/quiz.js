@@ -290,15 +290,18 @@ var EduQuiz = (function () {
     '</div>';
   }
 
+  function screenerClickHandler(e) {
+    var btn = e.target.closest('.screener-btn');
+    if (!btn) return;
+    var q = parseInt(btn.getAttribute('data-q'));
+    var answer = btn.getAttribute('data-answer');
+    if (q && answer) handleScreenerAnswer(q, answer);
+  }
+
   function bindScreener() {
     screenerAnswers = {};
-    document.addEventListener('click', function (e) {
-      var btn = e.target.closest('.screener-btn');
-      if (!btn) return;
-      var q = parseInt(btn.getAttribute('data-q'));
-      var answer = btn.getAttribute('data-answer');
-      if (q && answer) handleScreenerAnswer(q, answer);
-    });
+    document.removeEventListener('click', screenerClickHandler);
+    document.addEventListener('click', screenerClickHandler);
   }
 
   /* ── Guide Builder Question Flow ─────── */
@@ -359,6 +362,8 @@ var EduQuiz = (function () {
       case 7: container.innerHTML = renderStep7(); break;
       default: break;
     }
+
+    bindCurrentStep();
   }
 
   function updateProgress() {
@@ -1222,26 +1227,29 @@ var EduQuiz = (function () {
   }
 
   /* ── Tab functionality ───────────────── */
-  function bindTabs() {
-    document.addEventListener('click', function (e) {
-      var tabBtn = e.target.closest('.tab-btn');
-      if (!tabBtn) return;
-      var tabId = tabBtn.getAttribute('data-tab');
-      if (!tabId) return;
+  function tabClickHandler(e) {
+    var tabBtn = e.target.closest('.tab-btn');
+    if (!tabBtn) return;
+    var tabId = tabBtn.getAttribute('data-tab');
+    if (!tabId) return;
 
-      document.querySelectorAll('.tab-btn').forEach(function (b) {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      tabBtn.classList.add('active');
-      tabBtn.setAttribute('aria-selected', 'true');
-
-      document.querySelectorAll('.tab-content').forEach(function (c) {
-        c.classList.remove('active');
-      });
-      var target = document.getElementById(tabId);
-      if (target) target.classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(function (b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
     });
+    tabBtn.classList.add('active');
+    tabBtn.setAttribute('aria-selected', 'true');
+
+    document.querySelectorAll('.tab-content').forEach(function (c) {
+      c.classList.remove('active');
+    });
+    var target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+  }
+
+  function bindTabs() {
+    document.removeEventListener('click', tabClickHandler);
+    document.addEventListener('click', tabClickHandler);
   }
 
   return {
