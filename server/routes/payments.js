@@ -54,35 +54,7 @@ const router = express.Router();
 //   }
 // });
 
-// STRIPE_ACTIVATE: Create Checkout Session for Educator Monthly Plan ($10.99/month)
-// router.post('/create-checkout-session/educator', async (req, res) => {
-//   try {
-//     const { email, userId } = req.body;
-//
-//     if (!email || !userId) {
-//       return res.status(400).json({ error: 'Email and user ID are required.' });
-//     }
-//
-//     const session = await stripe.checkout.sessions.create({
-//       mode: 'subscription',
-//       customer_email: email,
-//       line_items: [{
-//         price: process.env.STRIPE_EDUCATOR_PRICE_ID,
-//         quantity: 1
-//       }],
-//       success_url: `${process.env.APP_URL}/#/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-//       cancel_url: `${process.env.APP_URL}/#/pricing`,
-//       metadata: {
-//         userId,
-//         planType: 'educator_monthly'
-//       }
-//     });
-//
-//     res.json({ url: session.url });
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to create checkout session.' });
-//   }
-// });
+// Educator plan removed — app is parent-focused only
 
 // STRIPE_ACTIVATE: Webhook handler for Stripe events
 // Verify webhook signature to prevent spoofing

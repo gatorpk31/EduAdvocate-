@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
-const { sendFeedbackNotification } = require('../utils/mailer');
+const { sendFeedbackNotification, sendReviewNotification } = require('../utils/mailer');
 
 const REVIEWS_FILE = path.join(__dirname, '..', '..', 'data', 'reviews.json');
 
@@ -30,6 +30,13 @@ function writeReviews(reviews) {
   const dir = path.dirname(REVIEWS_FILE);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf8');
+}
+
+function verifyAdmin(req) {
+  const password = req.headers['x-admin-password'];
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword || !password) return false;
+  return password === adminPassword;
 }
 
 router.post('/review', async (req, res) => {
@@ -63,6 +70,11 @@ router.post('/review', async (req, res) => {
 
     reviews.push(review);
     writeReviews(reviews);
+
+    // Notify admin of new review
+    try {
+      await sendReviewNotification(review);
+    } catch { /* email may fail, still acknowledge */ }
 
     res.status(201).json({ message: 'Thank you for sharing your experience. Your review will appear after approval.' });
   } catch (err) {
@@ -113,6 +125,75 @@ router.get('/reviews', (req, res) => {
     res.json({ reviews: approved });
   } catch (err) {
     res.status(500).json({ error: 'Failed to load reviews.' });
+  }
+});
+
+/* ── Admin: Review Moderation ─────────── */
+
+router.get('/admin/reviews', (req, res) => {
+  if (!verifyAdmin(req)) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  try {
+    const reviews = readReviews();
+    // Sort: pending first, then by date descending
+    reviews.sort((a, b) => {
+      if (a.status === 'pending' && b.status !== 'pending') return -1;
+      if (a.status !== 'pending' && b.status === 'pending') return 1;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    res.json({ reviews });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load reviews.' });
+  }
+});
+
+router.put('/admin/reviews/:id', (req, res) => {
+  if (!verifyAdmin(req)) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  try {
+    const { status } = req.body;
+    if (!['approved', 'rejected', 'pending'].includes(status)) {
+      return res.status(400).json({ error: 'Status must be approved, rejected, or pending.' });
+    }
+
+    const reviews = readReviews();
+    const review = reviews.find(r => r.id === req.params.id);
+    if (!review) {
+      return res.status(404).json({ error: 'Review not found.' });
+    }
+
+    review.status = status;
+    review.moderatedAt = new Date().toISOString();
+    writeReviews(reviews);
+
+    res.json({ message: 'Review updated.', review });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update review.' });
+  }
+});
+
+router.delete('/admin/reviews/:id', (req, res) => {
+  if (!verifyAdmin(req)) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  try {
+    let reviews = readReviews();
+    const index = reviews.findIndex(r => r.id === req.params.id);
+    if (index === -1) {
+      return res.status(404).json({ error: 'Review not found.' });
+    }
+
+    reviews.splice(index, 1);
+    writeReviews(reviews);
+
+    res.json({ message: 'Review deleted.' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete review.' });
   }
 });
 

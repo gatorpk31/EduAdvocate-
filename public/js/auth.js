@@ -152,7 +152,7 @@ var EduAuth = (function () {
       '<div class="card" style="max-width:440px;margin:0 auto;">' +
         '<h2 class="text-center">Create Account</h2>' +
         '<p class="text-center text-small text-muted">Account is optional. You can use all tools without an account. Creating one lets you save preferences and receive your guide via email.</p>' +
-        '<p class="text-center text-small text-muted">We store only your email address and role. We never store information about your child.</p>' +
+        '<p class="text-center text-small text-muted">We store only your email address. We never store information about your child.</p>' +
         '<div id="signup-message"></div>' +
         '<form id="signup-form">' +
           '<div class="form-group">' +
@@ -164,14 +164,7 @@ var EduAuth = (function () {
             '<span class="form-hint">Minimum 8 characters</span>' +
             '<input type="password" id="signup-password" class="form-input" required minlength="8" autocomplete="new-password">' +
           '</div>' +
-          '<div class="form-group">' +
-            '<label for="signup-role">Your Role</label>' +
-            '<select id="signup-role" class="form-select" required>' +
-              '<option value="">Select role</option>' +
-              '<option value="parent">Parent / Guardian</option>' +
-              '<option value="educator">Educator / Specialist</option>' +
-            '</select>' +
-          '</div>' +
+          '<input type="hidden" id="signup-role" value="parent">' +
           '<div class="form-group">' +
             '<label for="signup-state">State</label>' +
             '<select id="signup-state" class="form-select">' + stateOptions + '</select>' +
@@ -285,12 +278,8 @@ var EduAuth = (function () {
       msgEl.innerHTML = '';
       var email = document.getElementById('signup-email').value;
       var password = document.getElementById('signup-password').value;
-      var role = document.getElementById('signup-role').value;
+      var role = document.getElementById('signup-role').value || 'parent';
       var state = document.getElementById('signup-state').value;
-      if (!role) {
-        msgEl.innerHTML = '<div class="message message-error">Please select your role.</div>';
-        return;
-      }
       try {
         await signup(email, password, role, state);
         window.location.hash = '#/';

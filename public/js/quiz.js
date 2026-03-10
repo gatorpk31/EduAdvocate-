@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Quiz / Screener / Guide Builder
-   Question flow logic and branching
+   EduAdvocate — Screener / Guide Builder
+   Parent-focused question flow and branching
    ═══════════════════════════════════════════ */
 
 var EduQuiz = (function () {
@@ -31,7 +31,7 @@ var EduQuiz = (function () {
 
       '<div class="card card-accent text-center" style="max-width:640px;margin:32px auto 0;">' +
         '<h3>Not sure which applies to your child?</h3>' +
-        '<p>Take the eligibility screener below — it takes less than 2 minutes.</p>' +
+        '<p>Take the eligibility screener — it takes less than 2 minutes.</p>' +
         '<a href="#/screener" class="btn btn-primary">Start Screener</a>' +
       '</div>' +
     '</div>';
@@ -205,6 +205,7 @@ var EduQuiz = (function () {
   function renderScreener() {
     return '<div class="content-container section">' +
       '<h1 class="text-center">Eligibility Screener</h1>' +
+      '<p class="text-center" style="max-width:600px;margin:0 auto 8px;">Answer 6 quick questions to understand whether your child may qualify for an IEP or 504 plan.</p>' +
       '<div class="banner banner-warning" style="max-width:640px;margin:0 auto 24px;">This screener is an educational tool only. It is not a diagnosis, a legal determination, or a school evaluation. Contact your school district and consult a licensed professional.</div>' +
       '<div id="screener-questions" style="max-width:640px;margin:0 auto;">' +
         renderScreenerQuestion(1) +
@@ -274,7 +275,10 @@ var EduQuiz = (function () {
       }
     } else if (a[1] === 'yes' && a[2] === 'yes' && a[5] === 'no' && a[4] === 'yes') {
       heading = 'Your child already has the higher-level plan.';
-      explanation = 'Based on your answers, your child already receives services under an IEP. If you have concerns about whether the IEP is meeting your child\'s needs, request an IEP meeting to discuss changes. Review the IEP education section above for your rights.';
+      explanation = 'Based on your answers, your child already receives services under an IEP. If you have concerns about whether the IEP is meeting your child\'s needs, request an IEP meeting to discuss changes.';
+    } else if (a[6] === 'yes') {
+      heading = 'The school said no — but you still have rights.';
+      explanation = 'If the school denied eligibility and you disagree, you have the right to request Prior Written Notice (the school must explain their decision in writing), request an Independent Educational Evaluation (IEE) at public expense, file a state complaint, or request mediation or due process. You are not out of options.';
     } else {
       heading = 'The picture is not clear from these answers alone.';
       explanation = 'Based on your answers, we cannot determine eligibility with confidence. This is common — many families are in this situation. We recommend requesting a meeting with your school to discuss evaluation. You have the right to request an evaluation in writing at any time.';
@@ -342,6 +346,7 @@ var EduQuiz = (function () {
         'EduAdvocate does not store any information about your child. Your answers are used only to generate your guide in this browser and are never sent to our servers.' +
       '</div>' +
       '<h1 class="text-center">Build Your Meeting Guide</h1>' +
+      '<p class="text-center text-muted" style="max-width:600px;margin:0 auto 24px;">7 quick steps. Under 5 minutes. Your personalized, printable meeting guide.</p>' +
       '<div id="guide-progress"></div>' +
       '<div id="guide-step-container"></div>' +
     '</div>';
@@ -393,7 +398,7 @@ var EduQuiz = (function () {
 
     return '<div class="card" style="max-width:640px;margin:0 auto;">' +
       '<h2>Step 1: Select Your State</h2>' +
-      '<p>Your guide will include rights and resources specific to your state only.</p>' +
+      '<p>Your guide will include rights, timelines, and resources specific to your state.</p>' +
       '<div class="form-group">' +
         '<label for="guide-state">State</label>' +
         '<select id="guide-state" class="form-select">' + options + '</select>' +
@@ -648,7 +653,7 @@ var EduQuiz = (function () {
 
     var html = '<div class="card" style="max-width:640px;margin:0 auto;">' +
       '<h2>Step 5: What are your child\'s primary areas of need?</h2>' +
-      '<p class="text-small text-muted">Select all that apply.</p>' +
+      '<p class="text-small text-muted">Select all that apply. This helps us include the right questions and red flags in your guide.</p>' +
       '<div class="checkbox-group">';
 
     disabilities.forEach(function (d) {
@@ -707,7 +712,7 @@ var EduQuiz = (function () {
 
     var html = '<div class="card" style="max-width:640px;margin:0 auto;">' +
       '<h2>Step 6: Have you experienced any of these in past meetings?</h2>' +
-      '<p class="text-small text-muted">Select all that apply.</p>' +
+      '<p class="text-small text-muted">Select all that apply. Your guide will include specific scripted responses for each situation you select.</p>' +
       '<div class="checkbox-group">';
 
     experiences.forEach(function (ex) {
@@ -800,432 +805,6 @@ var EduQuiz = (function () {
     }
   }
 
-  /* ── Educator Flow ───────────────────── */
-  var educatorState = {
-    state: null,
-    tool: null,
-    gradeLevel: null,
-    disability: null,
-    subArea: null,
-    performanceLevel: null,
-    measurementSetting: null,
-    schoolImpacts: []
-  };
-
-  function resetEducatorState() {
-    educatorState = {
-      state: null,
-      tool: null,
-      gradeLevel: null,
-      disability: null,
-      subArea: null,
-      performanceLevel: null,
-      measurementSetting: null,
-      schoolImpacts: []
-    };
-  }
-
-  function getEducatorState() {
-    return educatorState;
-  }
-
-  function renderEducatorHome() {
-    return '<div class="container section">' +
-      '<h1 class="text-center">Educator Tools</h1>' +
-      '<p class="text-center" style="max-width:640px;margin:0 auto 40px;">Professional recommendation tools for IEP goal writing and 504 accommodation planning. All features are free during our launch period.</p>' +
-
-      '<div class="card" style="max-width:500px;margin:0 auto 32px;">' +
-        '<h3>Step 1: Select Your State</h3>' +
-        '<div class="form-group">' +
-          '<label for="edu-state">State</label>' +
-          '<select id="edu-state" class="form-select"><option value="">Select state</option></select>' +
-        '</div>' +
-      '</div>' +
-
-      '<div id="edu-tool-select" style="display:none;">' +
-        '<h2 class="text-center" style="margin-bottom:24px;">Select Your Tool</h2>' +
-        '<div class="role-cards">' +
-          '<div class="role-card" id="edu-tool-iep">' +
-            '<h3>IEP Goal Recommendations</h3>' +
-            '<p>Generate SMART goal recommendations aligned to disability category, grade level, and specific area of need.</p>' +
-          '</div>' +
-          '<div class="role-card" id="edu-tool-504">' +
-            '<h3>504 Accommodation Recommendations</h3>' +
-            '<p>Generate accommodation plans with implementation guidance, monitoring methods, and legal basis.</p>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-
-      '<div id="edu-tool-flow" style="margin-top:32px;"></div>' +
-
-      '<div style="margin-top:48px;">' +
-        '<h2 class="text-center" style="margin-bottom:24px;">Educator Resources</h2>' +
-        '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:900px;margin:0 auto;">' +
-          renderEducatorResources() +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function renderEducatorResources() {
-    return '<div class="resource-card">' +
-        '<h3>504 vs IEP Comparison</h3>' +
-        '<p class="text-small">Professional comparison with detailed legal framework differences, procedural protections, and eligibility standards.</p>' +
-        '<a href="#/parent" class="btn btn-sm btn-outline" style="margin-top:8px;">View Comparison</a>' +
-      '</div>' +
-
-      '<div class="resource-card">' +
-        '<h3>Child Find Obligations</h3>' +
-        '<p class="text-small">Under IDEA (34 CFR &sect;300.111), school districts have an affirmative obligation to identify, locate, and evaluate all children with disabilities within their jurisdiction who need special education and related services. This applies to children who are enrolled in public school, private school, home school, and those who are homeless or wards of the state. If you suspect a student may have a disability, you have a legal obligation to refer them for evaluation.</p>' +
-      '</div>' +
-
-      '<div class="resource-card">' +
-        '<h3>Communicating Concerns to Parents</h3>' +
-        '<p class="text-small"><strong>Do say:</strong> "I\'ve noticed [Student] is having difficulty with [specific observable behavior]. I\'d like to discuss strategies that might help."</p>' +
-        '<p class="text-small"><strong>Do not say:</strong> "I think your child has [diagnosis]." Educators should describe behaviors, not diagnose conditions.</p>' +
-        '<p class="text-small">Focus on observable, documented behaviors. Reference data and work samples. Express concern and collaboration, not judgment. Never suggest parents seek medication.</p>' +
-      '</div>' +
-
-      '<div class="resource-card">' +
-        '<h3>Referral Process Guide</h3>' +
-        '<p class="text-small">Steps to initiate a special education evaluation referral:</p>' +
-        '<ol style="list-style:decimal;margin-left:18px;font-size:0.85rem;">' +
-          '<li>Document specific academic and behavioral concerns with data</li>' +
-          '<li>Implement and document pre-referral interventions (RTI/MTSS)</li>' +
-          '<li>Consult with your building\'s Student Support Team</li>' +
-          '<li>Submit a formal written referral to the special education coordinator</li>' +
-          '<li>The district must respond within a reasonable time and provide Prior Written Notice</li>' +
-          '<li>If the district agrees to evaluate, parents must provide informed consent</li>' +
-          '<li>Evaluation must be completed within the state-mandated timeline</li>' +
-        '</ol>' +
-      '</div>';
-  }
-
-  function bindEducatorHome() {
-    resetEducatorState();
-
-    var stateSelect = document.getElementById('edu-state');
-    var toolSelect = document.getElementById('edu-tool-select');
-    if (!stateSelect) return;
-
-    if (typeof EduStates !== 'undefined') {
-      EduStates.forEach(function (s) {
-        var opt = document.createElement('option');
-        opt.value = s.abbreviation;
-        opt.textContent = s.name;
-        stateSelect.appendChild(opt);
-      });
-    }
-
-    stateSelect.addEventListener('change', function () {
-      educatorState.state = stateSelect.value;
-      if (toolSelect) toolSelect.style.display = stateSelect.value ? 'block' : 'none';
-    });
-
-    var iepTool = document.getElementById('edu-tool-iep');
-    var tool504 = document.getElementById('edu-tool-504');
-
-    if (iepTool) {
-      iepTool.addEventListener('click', function () {
-        educatorState.tool = 'iep';
-        renderEducatorToolFlow();
-      });
-    }
-
-    if (tool504) {
-      tool504.addEventListener('click', function () {
-        educatorState.tool = '504';
-        renderEducatorToolFlow();
-      });
-    }
-  }
-
-  function renderEducatorToolFlow() {
-    var container = document.getElementById('edu-tool-flow');
-    if (!container) return;
-
-    if (educatorState.tool === 'iep') {
-      container.innerHTML = renderIEPToolFlow();
-      bindIEPToolFlow();
-    } else if (educatorState.tool === '504') {
-      container.innerHTML = render504ToolFlow();
-      bind504ToolFlow();
-    }
-  }
-
-  /* ── IEP Goal Tool (Educator) ────────── */
-  function renderIEPToolFlow() {
-    var disabilityOptions = '';
-    if (typeof EduDisabilities !== 'undefined') {
-      EduDisabilities.filter(function (d) { return d.legalFramework !== '504'; }).forEach(function (d) {
-        disabilityOptions += '<option value="' + d.id + '">' + d.name + '</option>';
-      });
-    }
-
-    var gradeOptions = '<option value="">Select grade level</option>' +
-      '<option value="K-2">Kindergarten through 2nd Grade</option>' +
-      '<option value="3-5">3rd through 5th Grade</option>' +
-      '<option value="6-8">6th through 8th Grade</option>' +
-      '<option value="9-12">9th through 12th Grade</option>' +
-      '<option value="transition">Transition Program (ages 18-21)</option>';
-
-    return '<div class="card card-accent" style="max-width:700px;margin:0 auto;">' +
-      '<h2>IEP Goal Recommendations</h2>' +
-      '<p class="text-small text-muted">Generate SMART goal recommendations. All output uses IDEA language exclusively.</p>' +
-
-      '<div class="form-group">' +
-        '<label for="iep-grade">Grade Level</label>' +
-        '<select id="iep-grade" class="form-select">' + gradeOptions + '</select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label for="iep-disability">Disability Category</label>' +
-        '<select id="iep-disability" class="form-select"><option value="">Select disability</option>' + disabilityOptions + '</select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label for="iep-subarea">Specific Area of Need</label>' +
-        '<select id="iep-subarea" class="form-select"><option value="">Select area of need</option></select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label for="iep-performance">Current Performance Level</label>' +
-        '<select id="iep-performance" class="form-select">' +
-          '<option value="">Select</option>' +
-          '<option value="significantly-below">Significantly below grade level expectations</option>' +
-          '<option value="somewhat-below">Somewhat below grade level expectations</option>' +
-          '<option value="approaching">Approaching grade level expectations</option>' +
-          '<option value="at-grade">At grade level (goal addresses behavioral, social, or functional area)</option>' +
-        '</select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label for="iep-setting">Measurement Setting</label>' +
-        '<select id="iep-setting" class="form-select">' +
-          '<option value="">Select</option>' +
-          '<option value="general-ed">General education classroom</option>' +
-          '<option value="special-ed">Special education or resource room setting</option>' +
-          '<option value="both">Both general and special education settings</option>' +
-          '<option value="community">Community or vocational setting (transition students)</option>' +
-        '</select>' +
-      '</div>' +
-
-      '<button class="btn btn-primary" id="iep-generate">Generate Goals</button>' +
-      '<div id="iep-results" style="margin-top:24px;"></div>' +
-    '</div>';
-  }
-
-  function bindIEPToolFlow() {
-    var disabilitySelect = document.getElementById('iep-disability');
-    var subAreaSelect = document.getElementById('iep-subarea');
-    var generateBtn = document.getElementById('iep-generate');
-
-    if (disabilitySelect) {
-      disabilitySelect.addEventListener('change', function () {
-        educatorState.disability = disabilitySelect.value;
-        updateSubAreas(disabilitySelect.value, subAreaSelect);
-      });
-    }
-
-    if (subAreaSelect) {
-      subAreaSelect.addEventListener('change', function () {
-        educatorState.subArea = subAreaSelect.value;
-      });
-    }
-
-    if (generateBtn) {
-      generateBtn.addEventListener('click', function () {
-        educatorState.gradeLevel = document.getElementById('iep-grade').value;
-        educatorState.performanceLevel = document.getElementById('iep-performance').value;
-        educatorState.measurementSetting = document.getElementById('iep-setting').value;
-
-        if (!educatorState.gradeLevel || !educatorState.disability || !educatorState.subArea) {
-          document.getElementById('iep-results').innerHTML = '<div class="message message-error">Please complete all fields.</div>';
-          return;
-        }
-
-        var goals = getIEPGoals(educatorState);
-        displayIEPGoals(goals);
-      });
-    }
-  }
-
-  function updateSubAreas(disabilityId, selectEl) {
-    if (!selectEl) return;
-    selectEl.innerHTML = '<option value="">Select area of need</option>';
-
-    if (typeof EduDisabilities === 'undefined') return;
-    var disability = EduDisabilities.find(function (d) { return d.id === disabilityId; });
-    if (!disability || !disability.subAreas) return;
-
-    disability.subAreas.forEach(function (area) {
-      var opt = document.createElement('option');
-      opt.value = area;
-      opt.textContent = area;
-      selectEl.appendChild(opt);
-    });
-  }
-
-  function getIEPGoals(state) {
-    if (typeof EduIEPGoals === 'undefined') return [];
-    var categoryGoals = EduIEPGoals[state.disability];
-    if (!categoryGoals) return [];
-    var areaGoals = categoryGoals[state.subArea];
-    if (!areaGoals) return [];
-    var gradeGoals = areaGoals[state.gradeLevel];
-    if (!gradeGoals) {
-      var fallbackKey = Object.keys(areaGoals)[0];
-      gradeGoals = areaGoals[fallbackKey] || [];
-    }
-    return gradeGoals;
-  }
-
-  function displayIEPGoals(goals) {
-    var container = document.getElementById('iep-results');
-    if (!container) return;
-
-    if (!goals || goals.length === 0) {
-      container.innerHTML = '<div class="banner banner-warning">No goals found for this combination. Try a different grade level or sub-area.</div>';
-      return;
-    }
-
-    var html = '<h3 style="margin-bottom:16px;">Recommended IEP Goals</h3>';
-    goals.forEach(function (g, i) {
-      html += '<div class="goal-card">' +
-        '<div class="goal-card-label">' + (g.area || 'Goal ' + (i + 1)) + '</div>' +
-        '<div class="goal-card-statement">' + g.goal + '</div>' +
-        '<div class="goal-card-meta">' +
-          '<dt>Progress Monitoring</dt><dd>' + (g.measurement || 'Per IEP team determination') + '</dd>' +
-          '<dt>Standards Alignment</dt><dd>' + (g.standardsAlignment || 'IDEA 34 CFR §300.320') + '</dd>' +
-          (g.michiganStandard ? '<dt>Michigan Standard</dt><dd>' + g.michiganStandard + '</dd>' : '') +
-          '<dt>Research Base</dt><dd>' + (g.researchCitation || 'Evidence-based practice') + '</dd>' +
-        '</div>' +
-      '</div>';
-    });
-
-    html += '<button class="btn btn-outline" onclick="window.print()" style="margin-top:16px;">Print Goals</button>';
-    container.innerHTML = html;
-  }
-
-  /* ── 504 Accommodation Tool (Educator) ── */
-  function render504ToolFlow() {
-    var conditionOptions = '';
-    if (typeof EduDisabilities !== 'undefined') {
-      EduDisabilities.forEach(function (d) {
-        conditionOptions += '<option value="' + d.id + '">' + d.name + '</option>';
-      });
-    }
-
-    var gradeOptions = '<option value="">Select grade level</option>' +
-      '<option value="K-2">Kindergarten through 2nd Grade</option>' +
-      '<option value="3-5">3rd through 5th Grade</option>' +
-      '<option value="6-8">6th through 8th Grade</option>' +
-      '<option value="9-12">9th through 12th Grade</option>' +
-      '<option value="transition">Transition Program (ages 18-21)</option>';
-
-    var impactOptions = [
-      'Ability to concentrate or sustain attention',
-      'Ability to read or process written information',
-      'Ability to produce written work',
-      'Ability to demonstrate knowledge on tests',
-      'Physical access or mobility in the building',
-      'Medical needs during the school day',
-      'Emotional regulation or behavior',
-      'Social interaction and communication',
-      'Attendance or stamina throughout the day',
-      'Sleep, fatigue, or energy management'
-    ];
-
-    var html = '<div class="card card-primary" style="max-width:700px;margin:0 auto;">' +
-      '<h2>504 Accommodation Recommendations</h2>' +
-      '<p class="text-small text-muted">Generate accommodation plans with implementation guidance. All output uses Section 504 and ADA language exclusively.</p>' +
-
-      '<div class="form-group">' +
-        '<label for="five04-grade">Grade Level</label>' +
-        '<select id="five04-grade" class="form-select">' + gradeOptions + '</select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label for="five04-condition">Disability or Condition</label>' +
-        '<select id="five04-condition" class="form-select"><option value="">Select condition</option>' + conditionOptions + '</select>' +
-      '</div>' +
-
-      '<div class="form-group">' +
-        '<label>How does the condition primarily affect the student at school?</label>' +
-        '<p class="form-hint">Select all that apply.</p>' +
-        '<div class="checkbox-group">';
-
-    impactOptions.forEach(function (impact) {
-      html += '<label class="checkbox-item">' +
-        '<input type="checkbox" name="school-impact" value="' + impact + '">' +
-        '<span>' + impact + '</span>' +
-      '</label>';
-    });
-
-    html += '</div></div>' +
-      '<button class="btn btn-secondary" id="five04-generate">Generate Accommodations</button>' +
-      '<div id="five04-results" style="margin-top:24px;"></div>' +
-    '</div>';
-
-    return html;
-  }
-
-  function bind504ToolFlow() {
-    var generateBtn = document.getElementById('five04-generate');
-
-    if (generateBtn) {
-      generateBtn.addEventListener('click', function () {
-        educatorState.gradeLevel = document.getElementById('five04-grade').value;
-        educatorState.disability = document.getElementById('five04-condition').value;
-        educatorState.schoolImpacts = [];
-        document.querySelectorAll('input[name="school-impact"]:checked').forEach(function (cb) {
-          educatorState.schoolImpacts.push(cb.value);
-        });
-
-        if (!educatorState.gradeLevel || !educatorState.disability) {
-          document.getElementById('five04-results').innerHTML = '<div class="message message-error">Please select grade level and condition.</div>';
-          return;
-        }
-
-        var accommodations = get504Accommodations(educatorState);
-        display504Accommodations(accommodations);
-      });
-    }
-  }
-
-  function get504Accommodations(state) {
-    if (typeof Edu504Accommodations === 'undefined') return [];
-    var conditionData = Edu504Accommodations[state.disability];
-    if (!conditionData || !conditionData.accommodations) return [];
-    return conditionData.accommodations;
-  }
-
-  function display504Accommodations(accommodations) {
-    var container = document.getElementById('five04-results');
-    if (!container) return;
-
-    if (!accommodations || accommodations.length === 0) {
-      container.innerHTML = '<div class="banner banner-warning">No accommodations found for this condition.</div>';
-      return;
-    }
-
-    var html = '<h3 style="margin-bottom:16px;">Recommended 504 Accommodations</h3>';
-    accommodations.forEach(function (a) {
-      html += '<div class="accommodation-card">' +
-        '<h4>' + a.name + '</h4>' +
-        '<p>' + a.description + '</p>' +
-        '<div class="detail-row"><span class="detail-label">Implementation:</span> ' + a.implementation + '</div>' +
-        '<div class="detail-row"><span class="detail-label">Responsible Party:</span> ' + a.responsibleParty + '</div>' +
-        '<div class="detail-row"><span class="detail-label">Monitoring:</span> ' + a.monitoring + '</div>' +
-        '<div class="detail-row"><span class="detail-label">Legal Basis:</span> ' + a.legalBasis + '</div>' +
-        (a.researchSupport ? '<div class="detail-row"><span class="detail-label">Research:</span> ' + a.researchSupport + '</div>' : '') +
-      '</div>';
-    });
-
-    html += '<button class="btn btn-outline" onclick="window.print()" style="margin-top:16px;">Print Accommodations</button>';
-    container.innerHTML = html;
-  }
-
   /* ── Tab functionality ───────────────── */
   function tabClickHandler(e) {
     var tabBtn = e.target.closest('.tab-btn');
@@ -1260,9 +839,6 @@ var EduQuiz = (function () {
     renderGuideStep: renderGuideStep,
     bindCurrentStep: bindCurrentStep,
     getGuideState: getGuideState,
-    renderEducatorHome: renderEducatorHome,
-    bindEducatorHome: bindEducatorHome,
-    getEducatorState: getEducatorState,
     bindTabs: bindTabs
   };
 })();

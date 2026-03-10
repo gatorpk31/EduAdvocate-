@@ -98,9 +98,35 @@ async function sendFeedbackNotification(feedback) {
   });
 }
 
+async function sendReviewNotification(review) {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) return;
+
+  return sendEmail({
+    to: adminEmail,
+    subject: `[EduAdvocate] New Review Pending Approval — ${review.firstName} (${review.role})`,
+    html: `
+      <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 600px; color: #2C2C2C;">
+        <h2 style="color: #1B2E4B;">New Review Submitted</h2>
+        <p><strong>Name:</strong> ${review.firstName}</p>
+        <p><strong>Role:</strong> ${review.role}</p>
+        <p><strong>State:</strong> ${review.state || 'Not provided'}</p>
+        <p><strong>Status:</strong> Pending approval</p>
+        <h3>Experience:</h3>
+        <blockquote style="border-left: 3px solid #D4920A; padding-left: 12px; margin: 12px 0; font-style: italic;">"${review.experience}"</blockquote>
+        <p style="margin-top: 24px;">
+          <a href="${process.env.APP_URL || 'https://eduadvocate.com'}/#/admin" style="display: inline-block; background: #1B2E4B; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px;">Review in Admin Panel</a>
+        </p>
+      </div>
+    `,
+    text: `New review from ${review.firstName} (${review.role}): "${review.experience}". Log in to admin panel to approve or reject.`
+  });
+}
+
 module.exports = {
   sendEmail,
   sendGuideEmail,
   sendPasswordResetEmail,
-  sendFeedbackNotification
+  sendFeedbackNotification,
+  sendReviewNotification
 };
