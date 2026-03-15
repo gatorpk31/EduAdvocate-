@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Feedback Module
+   PlanVocate — Feedback Module
    Review submission + product feedback forms
    ═══════════════════════════════════════════ */
 
@@ -40,7 +40,7 @@ var EduFeedback = (function () {
               '</select>' +
             '</div>' +
             '<div class="form-group">' +
-              '<label for="review-experience">Your Experience with EduAdvocate</label>' +
+              '<label for="review-experience">Your Experience with PlanVocate</label>' +
               '<span class="form-hint">Minimum 50 characters</span>' +
               '<textarea id="review-experience" class="form-textarea" required minlength="50"></textarea>' +
               '<div id="review-char-count" class="text-small text-muted" style="margin-top:4px;">0 / 50 minimum</div>' +
@@ -48,7 +48,7 @@ var EduFeedback = (function () {
             '<div class="form-group">' +
               '<label class="form-checkbox">' +
                 '<input type="checkbox" id="review-permission" required>' +
-                '<span>I give EduAdvocate permission to display my experience on the website.</span>' +
+                '<span>I give PlanVocate permission to display my experience on the website.</span>' +
               '</label>' +
             '</div>' +
             '<button type="submit" class="btn btn-primary btn-block">Submit Review</button>' +
@@ -113,7 +113,7 @@ var EduFeedback = (function () {
         if (!data.reviews || data.reviews.length === 0) {
           container.innerHTML = '<div class="card text-center" style="max-width:600px;margin:0 auto;">' +
             '<h3>Reviews coming soon</h3>' +
-            '<p class="text-muted">Be the first to share your experience with EduAdvocate.</p>' +
+            '<p class="text-muted">Be the first to share your experience with PlanVocate.</p>' +
           '</div>';
           return;
         }
@@ -133,7 +133,7 @@ var EduFeedback = (function () {
       .catch(function () {
         container.innerHTML = '<div class="card text-center" style="max-width:600px;margin:0 auto;">' +
           '<h3>Reviews coming soon</h3>' +
-          '<p class="text-muted">Be the first to share your experience with EduAdvocate.</p>' +
+          '<p class="text-muted">Be the first to share your experience with PlanVocate.</p>' +
         '</div>';
       });
   }

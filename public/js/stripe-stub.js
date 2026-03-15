@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Stripe Frontend Stub
+   PlanVocate — Stripe Frontend Stub
    FULLY WRITTEN, FULLY INACTIVE AT LAUNCH
    ═══════════════════════════════════════════
 
@@ -77,7 +77,7 @@ var EduStripe = (function () {
 
     return '<div class="content-container section text-center">' +
       '<h1>Payment Successful</h1>' +
-      '<p>Thank you for supporting EduAdvocate. Your access is now active.</p>' +
+      '<p>Thank you for supporting PlanVocate. Your access is now active.</p>' +
       '<a href="#/" class="btn btn-primary">Go to Dashboard</a>' +
     '</div>';
   }

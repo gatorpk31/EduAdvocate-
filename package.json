@@ -9,7 +9,7 @@
     "build": "echo 'No build step required — static frontend'"
   },
   "keywords": ["special-education", "IEP", "504-plan", "advocacy", "IDEA", "Section-504"],
-  "author": "Axiom 38 LLC DBA EduAdvocate",
+  "author": "Axiom 38 LLC DBA PlanVocate",
   "license": "UNLICENSED",
   "private": true,
   "engines": {

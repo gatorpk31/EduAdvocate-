@@ -102,7 +102,7 @@ router.post('/product', async (req, res) => {
       // Email sending may fail; still acknowledge the feedback
     }
 
-    res.json({ message: 'Thank you for your feedback. It helps us improve EduAdvocate.' });
+    res.json({ message: 'Thank you for your feedback. It helps us improve PlanVocate.' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to submit feedback. Please try again.' });
   }

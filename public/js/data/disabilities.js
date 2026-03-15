@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Disability & Condition Data
+   PlanVocate — Disability & Condition Data
    Plain-language descriptions for parent-facing display
    ═══════════════════════════════════════════ */
 

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Section 504 Accommodations Data
+   PlanVocate — Section 504 Accommodations Data
    Structured as: Edu504Accommodations[conditionId]
    Each entry has an accommodations array
    ═══════════════════════════════════════════ */

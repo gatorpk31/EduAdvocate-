@@ -14,7 +14,7 @@ const paymentRoutes = require('./routes/payments');
 const app = express();
 
 const allowedOrigins = [
-  process.env.APP_URL || 'https://eduadvocate.com',
+  process.env.APP_URL || 'https://planvocate.com',
   'http://localhost:3000'
 ];
 

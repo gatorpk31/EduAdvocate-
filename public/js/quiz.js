@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Screener / Guide Builder
+   PlanVocate — Screener / Guide Builder
    Parent-focused question flow and branching
    ═══════════════════════════════════════════ */
 
@@ -343,7 +343,7 @@ var EduQuiz = (function () {
     resetGuideState();
     return '<div class="content-container section">' +
       '<div class="banner banner-privacy">' +
-        'EduAdvocate does not store any information about your child. Your answers are used only to generate your guide in this browser and are never sent to our servers.' +
+        'PlanVocate does not store any information about your child. Your answers are used only to generate your guide in this browser and are never sent to our servers.' +
       '</div>' +
       '<h1 class="text-center">Build Your Meeting Guide</h1>' +
       '<p class="text-center text-muted" style="max-width:600px;margin:0 auto 24px;">7 quick steps. Under 5 minutes. Your personalized, printable meeting guide.</p>' +

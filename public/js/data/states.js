@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — US State Data
+   PlanVocate — US State Data
    Recording consent, evaluation timelines,
    parent training centers, and complaint contacts
    ═══════════════════════════════════════════ */

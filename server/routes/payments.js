@@ -5,7 +5,7 @@ const router = express.Router();
 // STRIPE PAYMENT ROUTES — FULLY WRITTEN, FULLY INACTIVE AT LAUNCH
 // ═══════════════════════════════════════════════════════════════════
 //
-// When EduAdvocate activates payments, uncomment the code below.
+// When PlanVocate activates payments, uncomment the code below.
 // You will also need to:
 //   1. Uncomment Stripe env vars in .env
 //   2. Update pricing page CTA buttons in public/js/app.js to call

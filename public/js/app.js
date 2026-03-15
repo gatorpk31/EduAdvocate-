@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — App Router & Global State
+   PlanVocate — App Router & Global State
    Hash-based SPA router, page rendering
    ═══════════════════════════════════════════ */
 
@@ -109,7 +109,7 @@
       '<div class="container">' +
         '<p class="hero-badge">Built by Educators, for Parents</p>' +
         '<h1>Walk Into Every School Meeting<br>Knowing Your Child\'s Rights</h1>' +
-        '<p class="subheadline">EduAdvocate gives you a personalized, printable meeting guide — with your state\'s laws, the right questions to ask, red flags to watch for, and scripts for when things go wrong. All in under 5 minutes.</p>' +
+        '<p class="subheadline">PlanVocate gives you a personalized, printable meeting guide — with your state\'s laws, the right questions to ask, red flags to watch for, and scripts for when things go wrong. All in under 5 minutes.</p>' +
         '<div class="btn-group">' +
           '<a href="#/guide-builder" class="btn btn-primary btn-lg">Build My Free Guide</a>' +
           '<a href="#/learn" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);">Learn About IEP &amp; 504</a>' +
@@ -180,8 +180,8 @@
     '<div class="container section">' +
       '<div style="max-width:700px;margin:0 auto;text-align:center;">' +
         '<h2>Who We Are</h2>' +
-        '<p>EduAdvocate was created by educators who\'ve sat in hundreds of IEP and 504 meetings — on both sides of the table. We built this because parents deserve the same preparation the school team has. This is a tool by teachers, for parents.</p>' +
-        '<p class="text-muted text-small" style="margin-top:12px;">Axiom 38 LLC DBA EduAdvocate | Michigan | Disabled Veteran Owned Business</p>' +
+        '<p>PlanVocate was created by educators who\'ve sat in hundreds of IEP and 504 meetings — on both sides of the table. We built this because parents deserve the same preparation the school team has. This is a tool by teachers, for parents.</p>' +
+        '<p class="text-muted text-small" style="margin-top:12px;">Axiom 38 LLC DBA PlanVocate | Michigan | Disabled Veteran Owned Business</p>' +
       '</div>' +
     '</div>' +
 
@@ -204,7 +204,7 @@
 
     '<div class="section" style="background:var(--color-success-bg);">' +
       '<div class="container text-center">' +
-        '<p style="font-size:1.1rem;color:var(--color-success);font-weight:600;">EduAdvocate is free during our launch period. No credit card required.</p>' +
+        '<p style="font-size:1.1rem;color:var(--color-success);font-weight:600;">PlanVocate is free during our launch period. No credit card required.</p>' +
       '</div>' +
     '</div>';
   }
@@ -250,7 +250,7 @@
   function renderPricing() {
     return '<div class="container section">' +
       '<div class="banner banner-info text-center" style="max-width:700px;margin:0 auto 32px;">' +
-        'EduAdvocate is completely free during our launch period. The pricing below reflects our planned model. You will be notified before any charges begin.' +
+        'PlanVocate is completely free during our launch period. The pricing below reflects our planned model. You will be notified before any charges begin.' +
       '</div>' +
       '<h1 class="text-center">Pricing</h1>' +
       '<p class="text-center text-muted" style="margin-bottom:40px;">One simple plan. Everything you need to advocate for your child.</p>' +

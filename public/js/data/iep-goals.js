@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — IEP Goals Data
+   PlanVocate — IEP Goals Data
    Structured as: EduIEPGoals[disabilityId][subArea][gradeLevel]
    Each entry is an array of goal objects
    ═══════════════════════════════════════════ */

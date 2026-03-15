@@ -22,7 +22,7 @@ async function sendEmail({ to, subject, html, text }) {
   const transport = getTransporter();
 
   const mailOptions = {
-    from: `EduAdvocate <${process.env.FROM_EMAIL || 'hello@eduadvocate.com'}>`,
+    from: `PlanVocate <${process.env.FROM_EMAIL || 'hello@planvocate.com'}>`,
     to,
     subject,
     html,
@@ -35,11 +35,11 @@ async function sendEmail({ to, subject, html, text }) {
 async function sendGuideEmail(to, guideHtml) {
   return sendEmail({
     to,
-    subject: 'Your EduAdvocate Meeting Guide',
+    subject: 'Your PlanVocate Meeting Guide',
     html: `
       <div style="font-family: Georgia, serif; max-width: 700px; margin: 0 auto; color: #2C2C2C;">
         <div style="background: #1B2E4B; color: #fff; padding: 24px; text-align: center;">
-          <h1 style="margin: 0; font-size: 24px;">EduAdvocate</h1>
+          <h1 style="margin: 0; font-size: 24px;">PlanVocate</h1>
           <p style="margin: 8px 0 0; opacity: 0.9;">Your Personalized Meeting Guide</p>
         </div>
         <div style="padding: 24px;">
@@ -47,29 +47,29 @@ async function sendGuideEmail(to, guideHtml) {
         </div>
         <div style="background: #F8F5F0; padding: 16px 24px; font-size: 13px; color: #666; border-top: 1px solid #ddd;">
           <p style="margin: 0;">This guide is for educational purposes only. It is not legal advice.</p>
-          <p style="margin: 8px 0 0;">&copy; ${new Date().getFullYear()} Axiom 38 LLC DBA EduAdvocate. All rights reserved.</p>
+          <p style="margin: 8px 0 0;">&copy; ${new Date().getFullYear()} Axiom 38 LLC DBA PlanVocate. All rights reserved.</p>
         </div>
       </div>
     `,
-    text: 'Your EduAdvocate meeting guide is attached. Please view this email in an HTML-compatible email client for the best experience.'
+    text: 'Your PlanVocate meeting guide is attached. Please view this email in an HTML-compatible email client for the best experience.'
   });
 }
 
 async function sendPasswordResetEmail(to, resetUrl) {
   return sendEmail({
     to,
-    subject: 'Reset Your EduAdvocate Password',
+    subject: 'Reset Your PlanVocate Password',
     html: `
       <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 500px; margin: 0 auto; color: #2C2C2C;">
         <h2 style="color: #1B2E4B;">Password Reset Request</h2>
-        <p>You requested a password reset for your EduAdvocate account.</p>
+        <p>You requested a password reset for your PlanVocate account.</p>
         <p><a href="${resetUrl}" style="display: inline-block; background: #D4920A; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">Reset Password</a></p>
         <p style="font-size: 13px; color: #666;">This link expires in 1 hour. If you did not request this reset, you can safely ignore this email.</p>
         <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
-        <p style="font-size: 12px; color: #999;">&copy; ${new Date().getFullYear()} Axiom 38 LLC DBA EduAdvocate</p>
+        <p style="font-size: 12px; color: #999;">&copy; ${new Date().getFullYear()} Axiom 38 LLC DBA PlanVocate</p>
       </div>
     `,
-    text: `Reset your EduAdvocate password by visiting: ${resetUrl}\n\nThis link expires in 1 hour.`
+    text: `Reset your PlanVocate password by visiting: ${resetUrl}\n\nThis link expires in 1 hour.`
   });
 }
 
@@ -79,7 +79,7 @@ async function sendFeedbackNotification(feedback) {
 
   return sendEmail({
     to: adminEmail,
-    subject: `[EduAdvocate] New Product Feedback (${feedback.rating}/5 stars)`,
+    subject: `[PlanVocate] New Product Feedback (${feedback.rating}/5 stars)`,
     html: `
       <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 600px; color: #2C2C2C;">
         <h2 style="color: #1B2E4B;">New Product Feedback</h2>
@@ -104,7 +104,7 @@ async function sendReviewNotification(review) {
 
   return sendEmail({
     to: adminEmail,
-    subject: `[EduAdvocate] New Review Pending Approval — ${review.firstName} (${review.role})`,
+    subject: `[PlanVocate] New Review Pending Approval — ${review.firstName} (${review.role})`,
     html: `
       <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 600px; color: #2C2C2C;">
         <h2 style="color: #1B2E4B;">New Review Submitted</h2>
@@ -115,7 +115,7 @@ async function sendReviewNotification(review) {
         <h3>Experience:</h3>
         <blockquote style="border-left: 3px solid #D4920A; padding-left: 12px; margin: 12px 0; font-style: italic;">"${review.experience}"</blockquote>
         <p style="margin-top: 24px;">
-          <a href="${process.env.APP_URL || 'https://eduadvocate.com'}/#/admin" style="display: inline-block; background: #1B2E4B; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px;">Review in Admin Panel</a>
+          <a href="${process.env.APP_URL || 'https://planvocate.com'}/#/admin" style="display: inline-block; background: #1B2E4B; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 6px;">Review in Admin Panel</a>
         </p>
       </div>
     `,

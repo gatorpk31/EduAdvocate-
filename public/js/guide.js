@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Guide Generation Module
+   PlanVocate — Guide Generation Module
    100% Client-Side — NO child data sent to server
    ═══════════════════════════════════════════ */
 
@@ -89,7 +89,7 @@ var EduGuide = (function () {
 
     /* 1. HEADER */
     html += '<div class="guide-header">' +
-      '<h1>EduAdvocate Meeting Guide</h1>' +
+      '<h1>PlanVocate Meeting Guide</h1>' +
       '<p><strong>State:</strong> ' + escapeHtml(stateName) + ' | ' +
         '<strong>Plan Type:</strong> ' + getPlanLabel(state.planType) + ' | ' +
         '<strong>Meeting:</strong> ' + getMeetingLabel(state.meetingType) + '</p>' +
@@ -100,7 +100,7 @@ var EduGuide = (function () {
     /* Disclaimer */
     html += '<div class="guide-disclaimer">' +
       '<strong>Disclaimer:</strong> This guide is an educational tool only. It is not legal advice. Verify current law with your state\'s Department of Education and consult a licensed professional. ' +
-      'Axiom 38 LLC DBA EduAdvocate.' +
+      'Axiom 38 LLC DBA PlanVocate.' +
     '</div>';
 
     /* 2. YOUR RIGHTS IN [STATE] */

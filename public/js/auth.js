@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   EduAdvocate — Auth Module
+   PlanVocate — Auth Module
    Optional account creation / login / logout
    ═══════════════════════════════════════════ */
 
