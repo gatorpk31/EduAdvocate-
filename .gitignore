@@ -1,8 +1,8 @@
 node_modules/
+dist/
 .env
+.env.local
 .netlify/
-data/users.json
-data/reviews.json
 *.log
 .DS_Store
 Thumbs.db
