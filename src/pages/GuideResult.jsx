@@ -173,8 +173,30 @@ export default function GuideResult() {
     ? `${window.location.origin}/guide/result?token=${guideToken}`
     : null;
 
+  const generatedDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric',
+  });
+
   return (
     <div className="page guide-result-page">
+      {/* ── PRINT LETTERHEAD (hidden on screen, shown on print) ── */}
+      <div className="print-letterhead" aria-hidden="true">
+        <div className="print-letterhead-top">
+          <div className="print-letterhead-brand">
+            <span className="print-letterhead-logo">PlanVocate</span>
+            <span className="print-letterhead-tagline">Know Your Rights. Shape the Plan.</span>
+          </div>
+          <div className="print-letterhead-info">
+            <span>Prepared: {generatedDate}</span>
+            <span>planvocate.com</span>
+          </div>
+        </div>
+        <div className="print-letterhead-rule" />
+        <div className="print-letterhead-subtitle">
+          {isIEP ? 'IEP' : '504'} Meeting Preparation Guide — {stateData?.name} | Grade {guide.grade}
+        </div>
+      </div>
+
       <DisclaimerGuideHeader />
 
       <h1>Your {isIEP ? 'IEP' : '504'} Meeting Prep Guide</h1>
@@ -404,6 +426,21 @@ export default function GuideResult() {
       </section>
 
       <DisclaimerGuideAdditional />
+
+      {/* ── PRINT FOOTER (hidden on screen, shown on print) ── */}
+      <div className="print-footer" aria-hidden="true">
+        <div className="print-footer-rule" />
+        <div className="print-footer-content">
+          <span>PlanVocate — planvocate.com</span>
+          <span>Prepared {generatedDate}</span>
+          <span>For informational purposes only. Not legal advice.</span>
+        </div>
+        <p className="print-footer-disclaimer">
+          This guide is provided by Axiom 38 LLC for educational and informational purposes only.
+          It does not constitute legal advice. Consult an attorney or qualified advocate for
+          advice specific to your situation.
+        </p>
+      </div>
 
       <div className="guide-actions">
         <button className="btn btn-primary" onClick={() => window.print()}>

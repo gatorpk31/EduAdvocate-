@@ -976,6 +976,9 @@ tbody tr:hover { background: #f5f5f5; }
   color: var(--color-text-secondary);
 }
 
+/* --- Print Letterhead & Footer (hidden on screen) --- */
+.print-letterhead, .print-footer { display: none; }
+
 /* ============================================
    Print Stylesheet
    WCAG 2.1 AA: Print Accessibility
@@ -985,59 +988,304 @@ tbody tr:hover { background: #f5f5f5; }
   .site-header, .site-footer, .skip-link, .menu-toggle,
   .btn, .print-btn, .nav-links, .modal-overlay,
   .screener-page, .auth-page, .admin-page, .feedback-form,
-  .review-form, .hero-actions, .alert-banner, .alert-dismiss { display: none !important; }
+  .review-form, .hero-actions, .alert-banner, .alert-dismiss,
+  .guide-actions, .guide-token-notice { display: none !important; }
 
-  body {
-    font-size: 11pt;
-    line-height: 1.5;
-    color: #000;
-    background: #fff;
+  /* Show print-only elements */
+  .print-letterhead, .print-footer { display: block !important; }
+
+  @page {
+    size: letter;
+    margin: 0.75in 0.85in 0.75in 0.85in;
   }
 
-  .page { max-width: 100%; padding: 0; margin: 0; }
+  body {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+    background: #fff;
+    font-family: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+  }
+
+  .page {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
 
   .guide-output {
     box-shadow: none;
     padding: 0;
   }
 
-  /* Ensure sufficient contrast for B&W printing */
-  h1, h2, h3, h4, h5, h6 { color: #000; }
+  /* ── LETTERHEAD ── */
+  .print-letterhead {
+    margin-bottom: 20pt;
+  }
+  .print-letterhead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 8pt;
+  }
+  .print-letterhead-brand {
+    display: flex;
+    flex-direction: column;
+  }
+  .print-letterhead-logo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1B2E4B;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .print-letterhead-tagline {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 8pt;
+    color: #666;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2pt;
+  }
+  .print-letterhead-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.5;
+  }
+  .print-letterhead-rule {
+    height: 2.5pt;
+    background: linear-gradient(to right, #1B2E4B, #D4920A);
+    margin: 0 0 10pt 0;
+    border: none;
+    border-radius: 2pt;
+
+    /* Fallback for printers that don't support gradients */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-letterhead-subtitle {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 11pt;
+    font-weight: 600;
+    color: #1B2E4B;
+    text-align: center;
+    padding: 6pt 0;
+    border-bottom: 0.5pt solid #ccc;
+    margin-bottom: 6pt;
+  }
+
+  /* ── HEADINGS ── */
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1B2E4B;
+    margin-bottom: 4pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: #1B2E4B;
+    margin-top: 16pt;
+    margin-bottom: 6pt;
+    padding-bottom: 3pt;
+    border-bottom: 1.5pt solid #1B2E4B;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h3 {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #333;
+    margin-top: 10pt;
+    margin-bottom: 4pt;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .guide-meta {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 9pt;
+    color: #555;
+    margin-bottom: 12pt;
+  }
+
   a { color: #000; text-decoration: underline; }
 
+  /* ── SECTIONS ── */
+  .guide-section {
+    margin-bottom: 14pt;
+    padding-bottom: 10pt;
+    border-bottom: 0.5pt solid #ddd;
+    break-inside: auto;
+  }
+
   /* Prevent page breaks inside cards */
-  .guide-goal, .guide-accommodation, .question-card, .pushback-card {
+  .guide-goal, .accommodation-card, .question-card, .pushback-card {
     break-inside: avoid;
     page-break-inside: avoid;
   }
 
-  /* Show checkboxes in print */
-  .question-checkbox { display: inline-block !important; }
-
-  /* Ensure pushback cards print well in B&W */
-  .pushback-school { background: #f0f0f0; border: 1px solid #999; }
-  .pushback-respond { background: #f8f8f8; border: 1px solid #999; }
-
-  /* Logical page breaks */
-  .guide-section { break-after: auto; }
-  h2, h3 { break-after: avoid; }
-
-  /* Disclaimer visible on page 1 */
-  .disclaimer-guide {
-    border: 2px solid #000;
+  /* ── QUESTION CARDS ── */
+  .question-card {
+    border: 0.5pt solid #999;
+    padding: 8pt 10pt;
+    margin-bottom: 6pt;
+    border-radius: 3pt;
     background: none;
-    padding: 12pt;
-    margin-bottom: 18pt;
+  }
+  .question-checkbox {
+    display: inline-block !important;
+    width: 11pt !important;
+    height: 11pt !important;
+    border: 1pt solid #333 !important;
+    margin-right: 6pt;
+  }
+  .question-text strong {
+    font-size: 10pt;
+  }
+  .question-why {
+    font-size: 8.5pt;
+    color: #555;
+    padding-left: 17pt;
+  }
+  .question-area-badge {
+    font-size: 7pt;
+    padding: 1pt 5pt;
+    background: #1B2E4B;
+    color: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
+  /* ── PUSHBACK CARDS ── */
+  .pushback-card {
+    border: 0.5pt solid #999;
+    padding: 8pt 10pt;
+    margin-bottom: 8pt;
+    border-radius: 3pt;
+    background: none;
+  }
+  .pushback-school {
+    background: #f5f5f5;
+    border: 0.5pt solid #bbb;
+    padding: 6pt 8pt;
+    margin-bottom: 6pt;
+    border-radius: 2pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .pushback-respond {
+    background: none;
+    border: 0.5pt solid #bbb;
+    border-left: 3pt solid #1B2E4B;
+    padding: 6pt 8pt;
+    margin-bottom: 4pt;
+    border-radius: 2pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .pushback-label {
+    font-size: 7.5pt;
+    letter-spacing: 0.05em;
+  }
+  .pushback-school p, .pushback-respond p {
+    font-size: 9.5pt;
+  }
+
+  /* ── GOAL & ACCOMMODATION CARDS ── */
+  .goal-card, .accommodation-card {
+    background: #f8f8f8;
+    border: 0.5pt solid #ccc;
+    padding: 8pt 10pt;
+    margin-bottom: 6pt;
+    border-radius: 3pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── LEGAL NOTES ── */
+  .legal-note {
+    font-size: 8pt;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* ── SITUATION NOTES ── */
+  .situation-notes-display {
+    border-left: 2.5pt solid #D4920A;
+    background: none;
+    padding: 6pt 10pt;
+    font-size: 9.5pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── MEETING NOTES AREA ── */
   .guide-notes {
-    border: 1px dashed #666;
-    min-height: 200pt;
+    border: 1pt dashed #999;
+    min-height: 180pt;
+    padding: 10pt;
+    margin-top: 8pt;
   }
 
-  .guide-footer {
-    border-top: 1px solid #000;
-    margin-top: 24pt;
-    padding-top: 12pt;
+  /* ── DISCLAIMER ── */
+  .disclaimer-guide {
+    border: 1.5pt solid #333;
+    background: none;
+    padding: 10pt;
+    margin-bottom: 14pt;
+    font-size: 8.5pt;
   }
+
+  /* ── ORDERED / UNORDERED LISTS ── */
+  ol, ul {
+    margin-left: 16pt;
+    font-size: 10pt;
+  }
+  li {
+    margin-bottom: 2pt;
+  }
+
+  /* ── PRINT FOOTER ── */
+  .print-footer {
+    margin-top: 20pt;
+  }
+  .print-footer-rule {
+    height: 2pt;
+    background: linear-gradient(to right, #1B2E4B, #D4920A);
+    border: none;
+    border-radius: 2pt;
+    margin-bottom: 8pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-footer-content {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 8pt;
+    color: #666;
+    margin-bottom: 6pt;
+  }
+  .print-footer-disclaimer {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 7.5pt;
+    color: #888;
+    text-align: center;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* ── PAGE BREAKS ── */
+  h2, h3 { break-after: avoid; }
 }
