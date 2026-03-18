@@ -38,11 +38,19 @@ exports.handler = async (event) => {
   if (stripeEvent.type === 'checkout.session.completed') {
     const session = stripeEvent.data.object;
 
+    const meta = session.metadata || {};
+    let concerns = null;
+    try { concerns = JSON.parse(meta.guide_concerns || 'null'); } catch {}
+
     const { error } = await supabase
       .from('guide_purchases')
       .insert({
         stripe_session_id: session.id,
         customer_email: session.customer_email || session.customer_details?.email || null,
+        guide_state: meta.guide_state || null,
+        guide_plan_type: meta.guide_plan_type || null,
+        guide_grade: meta.guide_grade || null,
+        guide_concerns: concerns,
       });
 
     if (error) {

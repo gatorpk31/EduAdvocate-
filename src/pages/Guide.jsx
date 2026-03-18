@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { DisclaimerBanner } from '../components/Disclaimer';
+import { createCheckoutSession } from '../utils/api';
 import stateRights from '../data/state-rights';
-import iepGoals from '../data/iep-goals';
-import { accommodations504 } from '../data/accommodations-504';
 
 const STATES = Object.entries(stateRights).map(([code, s]) => ({ code, name: s.name }));
 const PLAN_TYPES = [
@@ -20,7 +19,8 @@ const CONCERN_AREAS = [
 const STEPS = ['State & Plan Type', 'Grade & Concerns', 'Review & Generate'];
 
 export default function Guide() {
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const canceled = searchParams.get('canceled') === 'true';
   const [step, setStep] = useState(() => {
     const saved = sessionStorage.getItem('planvocate-guide-step');
     return saved ? parseInt(saved, 10) : 0;
@@ -28,6 +28,9 @@ export default function Guide() {
   const [form, setForm] = useState(() => {
     try { return JSON.parse(sessionStorage.getItem('planvocate-guide-form')) || { state: '', planType: '', grade: '', concerns: [] }; } catch { return { state: '', planType: '', grade: '', concerns: [] }; }
   });
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     sessionStorage.setItem('planvocate-guide-form', JSON.stringify(form));
@@ -52,10 +55,23 @@ export default function Guide() {
     return true;
   }
 
-  function handleGenerate() {
-    // Store selections in sessionStorage for the result page
-    sessionStorage.setItem('planvocate-guide', JSON.stringify(form));
-    navigate('/guide/result');
+  async function handleCheckout() {
+    setLoading(true);
+    setError(null);
+    try {
+      const { url } = await createCheckoutSession({
+        customerEmail: email || undefined,
+        guideState: form.state,
+        planType: form.planType,
+        grade: form.grade,
+        concerns: form.concerns,
+      });
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (err) {
+      setError(err.message || 'Failed to start checkout. Please try again.');
+      setLoading(false);
+    }
   }
 
   const selectedState = stateRights[form.state];
@@ -157,6 +173,11 @@ export default function Guide() {
 
       {step === 2 && (
         <section aria-label="Step 3: Review your selections">
+          {canceled && (
+            <p className="error-message" role="alert">
+              Payment was canceled. Your selections are still here — try again when you&apos;re ready.
+            </p>
+          )}
           <h2>Review Your Selections</h2>
           <dl className="guide-review">
             <dt>State</dt>
@@ -175,10 +196,25 @@ export default function Guide() {
             tips tailored to your selections.
           </p>
 
+          <div className="form-group">
+            <label htmlFor="guide-email">
+              Email (optional — for your payment receipt)
+            </label>
+            <input
+              id="guide-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+            />
+          </div>
+
           <p className="auth-note">
-            Generating a guide costs $5 (one-time, no subscription). After payment, your guide
-            will be created entirely in your browser.
+            Generating a guide costs $5 (one-time, no subscription). After payment, you&apos;ll
+            receive a permanent link to access your guide anytime.
           </p>
+
+          {error && <p className="error-message" role="alert">{error}</p>}
         </section>
       )}
 
@@ -197,8 +233,8 @@ export default function Guide() {
             Next
           </button>
         ) : (
-          <button className="btn btn-primary" onClick={handleGenerate}>
-            Generate Guide — $5
+          <button className="btn btn-primary" onClick={handleCheckout} disabled={loading}>
+            {loading ? 'Redirecting to checkout…' : 'Generate Guide — $5'}
           </button>
         )}
       </div>

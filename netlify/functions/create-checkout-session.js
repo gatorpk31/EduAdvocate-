@@ -7,7 +7,11 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { customerEmail } = JSON.parse(event.body || '{}');
+    const { customerEmail, guideState, planType, grade, concerns } = JSON.parse(event.body || '{}');
+
+    if (!guideState || !planType || !grade || !concerns?.length) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Missing guide selections' }) };
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -17,6 +21,12 @@ exports.handler = async (event) => {
         price: process.env.STRIPE_GUIDE_PRICE_ID,
         quantity: 1,
       }],
+      metadata: {
+        guide_state: guideState,
+        guide_plan_type: planType,
+        guide_grade: grade,
+        guide_concerns: JSON.stringify(concerns),
+      },
       payment_intent_data: {
         statement_descriptor_suffix: 'PLANVOCATE',
       },

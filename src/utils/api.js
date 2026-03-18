@@ -10,10 +10,10 @@ async function apiCall(endpoint, options = {}) {
   return data;
 }
 
-export function createCheckoutSession(customerEmail) {
+export function createCheckoutSession({ customerEmail, guideState, planType, grade, concerns }) {
   return apiCall('create-checkout-session', {
     method: 'POST',
-    body: JSON.stringify({ customerEmail }),
+    body: JSON.stringify({ customerEmail, guideState, planType, grade, concerns }),
   });
 }
 
@@ -21,6 +21,13 @@ export function validateGuideToken(sessionId) {
   return apiCall('validate-guide-token', {
     method: 'POST',
     body: JSON.stringify({ sessionId }),
+  });
+}
+
+export function accessGuide(token) {
+  return apiCall('access-guide', {
+    method: 'POST',
+    body: JSON.stringify({ token }),
   });
 }
 
