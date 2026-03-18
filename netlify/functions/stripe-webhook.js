@@ -42,6 +42,8 @@ export const handler = async (event) => {
     const meta = session.metadata || {};
     let concerns = null;
     try { concerns = JSON.parse(meta.guide_concerns || 'null'); } catch {}
+    let issues = null;
+    try { issues = JSON.parse(meta.guide_issues || 'null'); } catch {}
 
     const { error } = await supabase
       .from('guide_purchases')
@@ -52,6 +54,8 @@ export const handler = async (event) => {
         guide_plan_type: meta.guide_plan_type || null,
         guide_grade: meta.guide_grade || null,
         guide_concerns: concerns,
+        guide_relationship: meta.guide_relationship || null,
+        guide_issues: issues,
       });
 
     if (error) {

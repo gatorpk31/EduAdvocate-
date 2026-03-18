@@ -8,7 +8,7 @@ export const handler = async (event) => {
   }
 
   try {
-    const { customerEmail, guideState, planType, grade, concerns } = JSON.parse(event.body || '{}');
+    const { customerEmail, guideState, planType, grade, concerns, relationship, issues } = JSON.parse(event.body || '{}');
 
     if (!guideState || !planType || !grade || !concerns?.length) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Missing guide selections' }) };
@@ -27,6 +27,8 @@ export const handler = async (event) => {
         guide_plan_type: planType,
         guide_grade: grade,
         guide_concerns: JSON.stringify(concerns),
+        guide_relationship: relationship || '',
+        guide_issues: JSON.stringify(issues || []),
       },
       payment_intent_data: {
         statement_descriptor_suffix: 'PLANVOCATE',

@@ -10,10 +10,10 @@ async function apiCall(endpoint, options = {}) {
   return data;
 }
 
-export function createCheckoutSession({ customerEmail, guideState, planType, grade, concerns }) {
+export function createCheckoutSession({ customerEmail, guideState, planType, grade, concerns, relationship, issues, situationNotes }) {
   return apiCall('create-checkout-session', {
     method: 'POST',
-    body: JSON.stringify({ customerEmail, guideState, planType, grade, concerns }),
+    body: JSON.stringify({ customerEmail, guideState, planType, grade, concerns, relationship, issues, situationNotes }),
   });
 }
 

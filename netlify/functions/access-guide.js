@@ -21,7 +21,7 @@ export const handler = async (event) => {
 
     const { data: purchase, error } = await supabase
       .from('guide_purchases')
-      .select('guide_state, guide_plan_type, guide_grade, guide_concerns')
+      .select('guide_state, guide_plan_type, guide_grade, guide_concerns, guide_relationship, guide_issues')
       .eq('guide_token', token)
       .single();
 
@@ -37,6 +37,8 @@ export const handler = async (event) => {
           planType: purchase.guide_plan_type,
           grade: purchase.guide_grade,
           concerns: purchase.guide_concerns || [],
+          relationship: purchase.guide_relationship || '',
+          issues: purchase.guide_issues || [],
         },
       }),
     };
