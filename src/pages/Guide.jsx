@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DisclaimerBanner } from '../components/Disclaimer';
 import stateRights from '../data/state-rights';
@@ -21,13 +21,21 @@ const STEPS = ['State & Plan Type', 'Grade & Concerns', 'Review & Generate'];
 
 export default function Guide() {
   const navigate = useNavigate();
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState({
-    state: '',
-    planType: '',
-    grade: '',
-    concerns: [],
+  const [step, setStep] = useState(() => {
+    const saved = sessionStorage.getItem('planvocate-guide-step');
+    return saved ? parseInt(saved, 10) : 0;
   });
+  const [form, setForm] = useState(() => {
+    try { return JSON.parse(sessionStorage.getItem('planvocate-guide-form')) || { state: '', planType: '', grade: '', concerns: [] }; } catch { return { state: '', planType: '', grade: '', concerns: [] }; }
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem('planvocate-guide-form', JSON.stringify(form));
+  }, [form]);
+
+  useEffect(() => {
+    sessionStorage.setItem('planvocate-guide-step', String(step));
+  }, [step]);
 
   function toggleConcern(area) {
     setForm((prev) => ({

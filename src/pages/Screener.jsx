@@ -31,8 +31,10 @@ const QUESTIONS = [
 ];
 
 export default function Screener() {
-  const [answers, setAnswers] = useState({});
-  const [showResult, setShowResult] = useState(false);
+  const [answers, setAnswers] = useState(() => {
+    try { return JSON.parse(sessionStorage.getItem('planvocate-screener-answers')) || {}; } catch { return {}; }
+  });
+  const [showResult, setShowResult] = useState(() => sessionStorage.getItem('planvocate-screener-done') === 'true');
 
   const allAnswered = QUESTIONS.every((q) => answers[q.id]);
 
@@ -76,7 +78,7 @@ export default function Screener() {
 
       {!showResult ? (
         <form
-          onSubmit={(e) => { e.preventDefault(); setShowResult(true); }}
+          onSubmit={(e) => { e.preventDefault(); sessionStorage.setItem('planvocate-screener-answers', JSON.stringify(answers)); sessionStorage.setItem('planvocate-screener-done', 'true'); setShowResult(true); }}
           aria-label="Eligibility screener"
         >
           {QUESTIONS.map((q, qi) => (
@@ -108,7 +110,7 @@ export default function Screener() {
           <div className="screener-actions">
             <Link to="/guide" className="btn btn-primary">Build Your Meeting Guide — $10</Link>
             <Link to="/learn" className="btn btn-secondary">Visit Learning Center</Link>
-            <button className="btn btn-outline" onClick={() => { setShowResult(false); setAnswers({}); }}>
+            <button className="btn btn-outline" onClick={() => { sessionStorage.removeItem('planvocate-screener-answers'); sessionStorage.removeItem('planvocate-screener-done'); setShowResult(false); setAnswers({}); }}>
               Retake Screener
             </button>
           </div>
