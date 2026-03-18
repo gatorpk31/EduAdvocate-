@@ -1,11 +1,9 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 import { DisclaimerFooter } from './Disclaimer';
 import SkipLink from './SkipLink';
 import { useState } from 'react';
 
 export default function Layout() {
-  const { user, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -30,14 +28,6 @@ export default function Layout() {
             <li role="none"><NavLink to="/guide" role="menuitem" onClick={() => setMenuOpen(false)}>Guide</NavLink></li>
             <li role="none"><NavLink to="/reviews" role="menuitem" onClick={() => setMenuOpen(false)}>Reviews</NavLink></li>
             <li role="none"><NavLink to="/feedback" role="menuitem" onClick={() => setMenuOpen(false)}>Feedback</NavLink></li>
-            {user ? (
-              <>
-                <li role="none"><NavLink to="/account" role="menuitem" onClick={() => setMenuOpen(false)}>Account</NavLink></li>
-                <li role="none"><button className="nav-btn" onClick={() => { signOut(); setMenuOpen(false); }}>Sign Out</button></li>
-              </>
-            ) : (
-              <li role="none"><NavLink to="/login" role="menuitem" onClick={() => setMenuOpen(false)}>Sign In</NavLink></li>
-            )}
           </ul>
         </nav>
       </header>

@@ -57,11 +57,9 @@ function Privacy() {
         <section id="what-we-collect" aria-labelledby="collect-heading">
           <h2 id="collect-heading">2. What We Collect</h2>
           <p>We collect the following categories of information from adult users:</p>
-          <h3>Account Information</h3>
+          <h3>Purchase Information</h3>
           <ul>
-            <li>Email address (used for account creation, authentication, and communication)</li>
-            <li>Password (hashed and stored securely; we never store plaintext passwords)</li>
-            <li>State of residence (used to generate state-specific educational guides)</li>
+            <li>Email address (collected at checkout for payment confirmation and receipt delivery)</li>
           </ul>
           <h3>Payment Information</h3>
           <ul>
@@ -275,17 +273,12 @@ function Privacy() {
           </p>
           <ul>
             <li>
-              <strong>Account Data:</strong> Retained for as long as your account is active. If you
-              request account deletion, we will delete your account data within 30 days, except where
-              retention is required by law.
+              <strong>Payment Records:</strong> Transaction records (email and Stripe session ID) are
+              retained for a minimum of 7 years to comply with tax and financial reporting obligations.
             </li>
             <li>
-              <strong>Payment Records:</strong> Transaction records are retained for a minimum of 7
-              years to comply with tax and financial reporting obligations.
-            </li>
-            <li>
-              <strong>Generated Guides:</strong> Guide content associated with your account is deleted
-              when your account is deleted.
+              <strong>Generated Guides:</strong> Guide content is generated entirely in your browser
+              and is never stored on our servers.
             </li>
             <li>
               <strong>Server Logs:</strong> Automatically purged after 90 days.

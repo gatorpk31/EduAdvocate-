@@ -57,8 +57,8 @@ export default function Home() {
         <ul>
           <li>No child data is ever stored or transmitted to any server</li>
           <li>Guide generation happens entirely in your browser</li>
-          <li>Accounts are optional — the screener and guide work without one</li>
-          <li>We store only your email and role preference if you create an account</li>
+          <li>No account required — no sign-up, no password, no tracking</li>
+          <li>We only collect your email at checkout for payment confirmation</li>
         </ul>
       </section>
 

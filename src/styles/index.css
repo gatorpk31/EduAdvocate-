@@ -644,47 +644,101 @@ tbody tr:hover { background: #f5f5f5; }
 
 /* --- Admin --- */
 .admin-page { max-width: 960px; }
-.admin-login { max-width: 400px; margin: 2rem auto; }
-.admin-dashboard {
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.admin-nav {
+  display: flex;
+  gap: 0;
+  margin: 1rem 0 1.5rem;
+  border-bottom: 2px solid var(--color-border);
+  flex-wrap: wrap;
+}
+.admin-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0;
 }
-.admin-stat {
+.stat-card {
   background: var(--color-surface);
   padding: 1.25rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   text-align: center;
 }
-.admin-stat .count {
+.stat-number {
+  display: block;
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-primary);
   font-family: var(--font-heading);
 }
-.admin-stat .label {
+.stat-label {
   font-family: var(--font-ui);
   font-size: 0.85rem;
   color: var(--color-text-secondary);
 }
-.admin-card {
+.admin-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.admin-item {
   background: var(--color-surface);
   padding: 1.25rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 1rem;
 }
-.admin-card-actions {
+.admin-item.unread {
+  border-left: 4px solid var(--color-accent);
+}
+.admin-item.inactive {
+  opacity: 0.6;
+}
+.admin-item-header {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.admin-actions {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.75rem;
   flex-wrap: wrap;
 }
-.admin-note-field {
-  width: 100%;
-  margin-top: 0.5rem;
+.admin-form {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+.badge {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+}
+.badge-active { background: #e8f5e9; color: var(--color-success); }
+.badge-inactive { background: #ffebee; color: var(--color-error); }
+.text-secondary {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
 }
 
 /* --- Alert Banner --- */
@@ -714,26 +768,6 @@ tbody tr:hover { background: #f5f5f5; }
 .legal-page h2 { margin-top: 2rem; }
 .legal-page h3 { margin-top: 1.5rem; }
 .legal-page section { margin-bottom: 1.5rem; }
-
-/* --- Account Info --- */
-.account-info {
-  background: var(--color-surface);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin: 1.5rem 0;
-}
-.account-info dl {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 0.5rem 1rem;
-}
-.account-info dt {
-  font-family: var(--font-ui);
-  font-weight: 600;
-  color: var(--color-text-secondary);
-}
-.account-info dd { margin: 0; }
 
 /* --- CTA Section --- */
 .cta {

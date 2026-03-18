@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
-import { submitReview } from '../utils/api';
+import { getApprovedReviews, submitReview } from '../utils/api';
 
 const STATES_LIST = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'];
 
@@ -19,12 +18,12 @@ export default function Reviews() {
   }, []);
 
   async function loadReviews() {
-    const { data } = await supabase
-      .from('reviews')
-      .select('reviewer_first_name, reviewer_role, reviewer_state, rating, review_text, approved_at')
-      .eq('status', 'approved')
-      .order('approved_at', { ascending: false });
-    setReviews(data || []);
+    try {
+      const data = await getApprovedReviews();
+      setReviews(data || []);
+    } catch {
+      // silently fail — page still works with empty reviews
+    }
     setLoading(false);
   }
 

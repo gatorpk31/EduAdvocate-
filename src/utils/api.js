@@ -24,6 +24,10 @@ export function validateGuideToken(sessionId) {
   });
 }
 
+export function getApprovedReviews() {
+  return apiCall('get-reviews');
+}
+
 export function submitReview(review) {
   return apiCall('submit-review', {
     method: 'POST',
