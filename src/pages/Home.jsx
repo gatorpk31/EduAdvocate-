@@ -14,7 +14,7 @@ export default function Home() {
         </p>
         <div className="hero-actions">
           <Link to="/screener" className="btn btn-primary">Free Eligibility Screener</Link>
-          <Link to="/guide" className="btn btn-secondary">Get Your Meeting Guide — $10</Link>
+          <Link to="/guide" className="btn btn-secondary">Get Your Meeting Guide — $5</Link>
         </div>
       </section>
 
@@ -38,7 +38,7 @@ export default function Home() {
           <article className="feature-card">
             <h3>3. One-Time Payment</h3>
             <p>
-              Pay $10 for a single guide generation session. No subscriptions, no recurring
+              Pay $5 for a single guide generation session. No subscriptions, no recurring
               charges, no hidden fees.
             </p>
           </article>

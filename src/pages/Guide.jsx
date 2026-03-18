@@ -176,7 +176,7 @@ export default function Guide() {
           </p>
 
           <p className="auth-note">
-            Generating a guide costs $10 (one-time, no subscription). After payment, your guide
+            Generating a guide costs $5 (one-time, no subscription). After payment, your guide
             will be created entirely in your browser.
           </p>
         </section>
@@ -198,7 +198,7 @@ export default function Guide() {
           </button>
         ) : (
           <button className="btn btn-primary" onClick={handleGenerate}>
-            Generate Guide — $10
+            Generate Guide — $5
           </button>
         )}
       </div>

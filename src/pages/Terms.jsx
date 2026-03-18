@@ -199,7 +199,7 @@ function Terms() {
         <section id="payment" aria-labelledby="payment-heading">
           <h2 id="payment-heading">9. Payment and Refund Policy</h2>
           <p>
-            PlanVocate offers a one-time payment of <strong>$10.00 USD</strong> for access to the
+            PlanVocate offers a one-time payment of <strong>$5.00 USD</strong> for access to the
             Service. This is not a subscription, and you will not be charged recurring fees. The one-time
             payment grants you access to the guide generation features of the Service.
           </p>
@@ -338,7 +338,7 @@ function Terms() {
               IN NO EVENT SHALL THE TOTAL LIABILITY OF AXIOM 38 LLC ARISING OUT OF OR IN CONNECTION WITH
               THESE TERMS OR YOUR USE OF THE SERVICE EXCEED THE AMOUNT YOU HAVE PAID TO AXIOM 38 LLC IN
               THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE LIABILITY, OR TEN DOLLARS
-              ($10.00), WHICHEVER IS GREATER.
+              ($5.00), WHICHEVER IS GREATER.
             </strong>
           </p>
           <p>

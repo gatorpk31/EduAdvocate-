@@ -108,7 +108,7 @@ export default function Screener() {
           <h2>Screener Result: {getResult().recommendation}</h2>
           <p>{getResult().explanation}</p>
           <div className="screener-actions">
-            <Link to="/guide" className="btn btn-primary">Build Your Meeting Guide — $10</Link>
+            <Link to="/guide" className="btn btn-primary">Build Your Meeting Guide — $5</Link>
             <Link to="/learn" className="btn btn-secondary">Visit Learning Center</Link>
             <button className="btn btn-outline" onClick={() => { sessionStorage.removeItem('planvocate-screener-answers'); sessionStorage.removeItem('planvocate-screener-done'); setShowResult(false); setAnswers({}); }}>
               Retake Screener
