@@ -1,5 +1,5 @@
 // netlify/functions/admin-dashboard.js
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -10,7 +10,7 @@ function isAuthorized(event) {
   return event.headers['x-admin-password'] === process.env.ADMIN_PASSWORD;
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'GET') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }

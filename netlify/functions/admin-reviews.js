@@ -1,5 +1,5 @@
 // netlify/functions/admin-reviews.js
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -19,7 +19,7 @@ function isAuthorized(event) {
 //   // Send email to ADMIN_EMAIL about new review submission
 // }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (!isAuthorized(event)) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Unauthorized' }) };
   }

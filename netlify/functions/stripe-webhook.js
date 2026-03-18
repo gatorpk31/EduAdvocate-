@@ -1,6 +1,7 @@
 // netlify/functions/stripe-webhook.js
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { createClient } = require('@supabase/supabase-js');
+import Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -13,7 +14,7 @@ const supabase = createClient(
 //   // Include: purchase.customer_email, purchase.stripe_session_id, purchase.purchased_at
 // }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }

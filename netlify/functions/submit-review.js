@@ -1,5 +1,5 @@
 // netlify/functions/submit-review.js
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -12,7 +12,7 @@ const supabase = createClient(
 //   // Include: review.reviewer_first_name, review.rating, review.review_text
 // }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }

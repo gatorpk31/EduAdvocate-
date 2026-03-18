@@ -1,5 +1,5 @@
 // netlify/functions/admin-login.js
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const MAX_ATTEMPTS = 3;
 const LOCKOUT_MS = 30 * 60 * 1000; // 30 minutes
@@ -25,7 +25,7 @@ function recordAttempt(ip) {
   attempts[ip].lastAttempt = Date.now();
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
@@ -62,5 +62,4 @@ exports.handler = async (event) => {
 };
 
 // Export for use by other admin functions
-exports.sessions = sessions;
-exports.SESSION_EXPIRY_MS = SESSION_EXPIRY_MS;
+export { sessions, SESSION_EXPIRY_MS };
