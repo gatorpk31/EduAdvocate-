@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Learn from './pages/Learn';
@@ -13,6 +14,16 @@ import Privacy from './pages/Privacy';
 import Disclaimer from './pages/Disclaimer';
 
 export default function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('config', 'G-KNH8DF3Z91', {
+        page_path: location.pathname + location.search,
+      });
+    }
+  }, [location]);
+
   return (
     <Routes>
       <Route element={<Layout />}>
